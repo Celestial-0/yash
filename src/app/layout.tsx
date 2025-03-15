@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Container, Theme } from '@radix-ui/themes';
 import { NavigationBar } from '@/components/core/navigation/navigation-bar';
-
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { GridBackground } from '@/components/core/grid-background';
 import { ThemeProvider } from 'next-themes';
@@ -33,6 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         <NavigationBar />
                         <Container size={ '2' } className={ 'p-3 sm:p-15 ' }>
                             { children }
+                            <Analytics />
                         </Container>
                     </Theme>
                 </ThemeProvider>
