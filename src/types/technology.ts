@@ -32,4 +32,6 @@ export type Technology =
   | 'Git'
   | 'GitHub'
   | 'Vercel'
-  | 'Pytest';  
+  | 'Pytest'
+  | 'Android'
+  | 'Kotlin';  

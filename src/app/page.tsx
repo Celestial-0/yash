@@ -4,6 +4,7 @@ import { Education } from "@/components/core/education/education";
 import { Hero } from "@/components/core/hero/hero";
 import { Projects } from "@/components/core/projects/projects";
 import { Work } from "@/components/core/work/work";
+import { Contact } from "@/components/core/contacts/contacts";
 import { Flex } from "@radix-ui/themes";
 
 
@@ -16,6 +17,7 @@ export default function Page() {
       <Education />
       <Technology />
       <Projects />
+      <Contact/>
     </Flex>
   );
 }
