@@ -10,7 +10,7 @@ import { Flex } from "@radix-ui/themes";
 
 export default function Page() {
   return (
-    <Flex direction={"column"} className={"relative"} gap={"8"}>
+    <Flex direction={"column"} className={"relative"} gap={"5"}>
       <Hero />
       <About />
       <Work />

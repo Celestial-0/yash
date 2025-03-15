@@ -8,11 +8,13 @@ import {
   FaGithub,
   FaLinkedin,
   FaNewspaper,
+  FaTerminal,
 } from "react-icons/fa6";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import { NavigationLink } from "./navigation-link";
 import { useTheme } from "next-themes";
 import { SiLeetcode } from "react-icons/si";
+
 
 export const NavigationBar = () => {
   const { theme, setTheme } = useTheme();
@@ -31,12 +33,17 @@ export const NavigationBar = () => {
           </NavigationLink>
         </DockIcon>
         <DockIcon>
-          <NavigationLink href={"#projects"} label={"Projects"}>
+          <NavigationLink href={"/"} label={"Terminal"}>
+            <FaTerminal size={"1.10rem"} />
+          </NavigationLink>
+        </DockIcon>
+        <DockIcon>
+          <NavigationLink href={"/#projects"} label={"Projects"}>
             <FaFolderOpen size={"1.10rem"} />
           </NavigationLink>
         </DockIcon>
         <DockIcon>
-          <NavigationLink href={"/"} label={"Stats"}>
+          <NavigationLink href={"/stats"} label={"Stats"}>
             <FaNewspaper size={"1.10rem"} />
           </NavigationLink>
         </DockIcon>

@@ -8,9 +8,9 @@ const BLUR_FADE_DELAY = 0.04;
 
 export const Contact = () => {
   return (
-    <Flex direction="column" gap="8"  pb={"9"}>
+    <Flex direction="column" gap="6"  pb={"9"}>
       <BlurFade delay={BLUR_FADE_DELAY * 16}>
-        <Flex direction="column" gap="5">
+        <Flex direction="column" gap="3">
           <SectionHeading title="Contact Me" />
           <Heading size="6" weight="bold" align="center">
             Get in Touch

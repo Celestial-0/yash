@@ -7,9 +7,9 @@ import { SectionHeading } from '../section-heading';
 export const Work = () => {
 
     return (
-        <Flex direction={ 'column' } gap={ '5' }>
+        <Flex direction={ 'column' } gap={ '6' }>
             <SectionHeading title={ 'Work Experience' } />
-            <Flex direction={ 'column' } className={ 'w-full' } gap={ '4' }>
+            <Flex direction={ 'column' } className={ 'w-full' } gap={ '3' }>
                 { WORK_EXPERIENCES.map((work, index) => (
                     <BlurFade key={ index } delay={ 0.25 * index } inView>
                         <ExpandableContent experience={ work } />
