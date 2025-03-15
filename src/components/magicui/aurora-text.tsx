@@ -161,7 +161,7 @@ export function AuroraText({
         style={{
           opacity: isReady ? 0 : 1,
           transition: "opacity 0.2s ease-in",
-          position: isReady ? "absolute" : "relative",
+          position: "relative",
           display: "inline-block",
           whiteSpace: "nowrap",
         }}
