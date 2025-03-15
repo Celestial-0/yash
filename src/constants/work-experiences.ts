@@ -38,7 +38,7 @@ export const WORK_EXPERIENCES: Experience[] = [
     role: 'Member',
     startDate: formatDate('2023-10-01'),
     endDate: formatDate('Present'),
-    description: '> Exploring cybersecurity concepts, ethical hacking, and digital forensics while contributing to CyberCell GU initiatives.',
+    description: 'Exploring cybersecurity concepts, ethical hacking, and digital forensics while contributing to CyberCell GU initiatives.',
     logoUrl: 'https://media.licdn.com/dms/image/v2/D4D0BAQH4BusOZlcEvQ/company-logo_200_200/company-logo_200_200/0/1693504304476?e=1749686400&v=beta&t=0bIzRDBU3zBYrs_JvnLbf9AVYsZK2Joc9c3-G75vhjg',
   }
 ];
