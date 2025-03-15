@@ -32,7 +32,9 @@ import {
     SiPandas,   
     SiIntellijidea,  
     SiSpyderide,  
-    SiLinux  
+    SiLinux,
+    SiAndroid,
+    SiKotlin,
 } from "react-icons/si"; 
 
 
@@ -40,12 +42,11 @@ import { FaDocker } from "react-icons/fa";
 import { FaRust } from "react-icons/fa";
 
 
-import CIcon from  '@/components/core/icon/CIcon';
-import FletIcon from '@/components/core/icon/FletIcon';
-import MatplotlibIcon from '@/components/core/icon/MatplotlibIcon';
-import SeabornIcon from '@/components/core/icon/SeabornIcon';
-import PytestIcon from '@/components/core/icon/PytestIcon';
-import CIconBW from '@/components/core/icon/CIconBW';
+import FletIcon from '@/components/core/icons/FletIcon';
+import MatplotlibIcon from '@/components/core/icons/MatplotlibIcon';
+import SeabornIcon from '@/components/core/icons/SeabornIcon';
+import PytestIcon from '@/components/core/icons/PytestIcon';
+import CIconBW from '@/components/core/icons/CIconBW';
 
 export const TECHNOLOGY_ICONS: Record<Technology, IconType> = {  
     'React': RiReactjsLine,  
@@ -72,6 +73,8 @@ export const TECHNOLOGY_ICONS: Record<Technology, IconType> = {
     'C++': BiLogoCPlusPlus,  
     'Java': BiLogoJava,  
     'Rust': FaRust,  
+    'Android': SiAndroid,
+    'Kotlin': SiKotlin,
     'IntelliJ IDEA': SiIntellijidea,  
     'Spyder': SiSpyderide,  
     'Anaconda': SiAnaconda,  

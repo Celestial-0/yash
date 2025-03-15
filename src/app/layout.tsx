@@ -27,11 +27,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <ThemeProvider attribute='class'>
+                <ThemeProvider attribute='class' enableSystem={true} defaultTheme='system'>
                     <Theme accentColor={ 'gray' }>
                         <GridBackground />
                         <NavigationBar />
-                        <Container size={ '2' } className={ 'p-3 sm:p-0' }>
+                        <Container size={ '2' } className={ 'p-3 sm:p-15' }>
                             { children }
                         </Container>
                     </Theme>
