@@ -5,9 +5,9 @@ import { AuroraText } from "@/components/magicui/aurora-text";
 
 export default function ContactCard() {
   return (
-    <Flex direction="column" align="center" className="w-full mx-auto text-center">
+    <Flex direction="column" align="center" className="mx-auto text-center w-full">
       <Heading
-        size="5"
+        size="4"
         className="font-bold tracking-tighter md:text-2xl lg:text-3xl"
       >
         Want to chat? Just shoot me a DM{" "}

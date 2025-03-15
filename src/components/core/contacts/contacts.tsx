@@ -8,21 +8,28 @@ const BLUR_FADE_DELAY = 0.04;
 
 export const Contact = () => {
   return (
-    <Flex direction="column" gap={"8"} className={"max-w-fit"} >
+    <Flex direction="column" gap={"8"}>
       <BlurFade delay={BLUR_FADE_DELAY * 16}>
-        <Flex direction={"column"} gap = {"5"}>
+        <Flex direction={"column"} gap={"5"}>
+          <SectionHeading title={"Contact Me"} />
 
-        <SectionHeading title={"Contact Me"}  />
+          <Flex justify={"center"} direction={"column"} >
+            <Heading size={"6"} weight={"bold"} align={"center"}>
+              Get in Touch
+            </Heading>
+          </Flex>
 
-        <Flex gap={{ initial: '1', sm: '2' }} justify={ 'center' }>
-                <Heading size={ '6' } weight={ 'bold' } align={ 'center' }>
-                Get in Touch
-                </Heading>
-        </Flex>
-
-        <Flex className={ 'w-full' } gap={ '3' } justify={ 'between' } align={ 'center' } direction={ 'column' } pb={ '5' } mb={ '9' }>   
-          <ContactCard/>
-        </Flex>
+          <Flex 
+            direction={"column"}
+            gap={"3"}
+            mb={{ sm: '6', lg: '9' }}
+            justify={"center"}
+            align={"center"}
+            width={"full"}
+            
+          >
+            <ContactCard />
+          </Flex>
         </Flex>
       </BlurFade>
     </Flex>

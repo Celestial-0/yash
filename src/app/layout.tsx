@@ -31,7 +31,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     <Theme accentColor={ 'gray' }>
                         <GridBackground />
                         <NavigationBar />
-                        <Container size={ '2' } className={ 'p-3 sm:p-15' }>
+                        <Container size={ '2' } className={ 'p-3 sm:p-15 ' }>
                             { children }
                         </Container>
                     </Theme>
