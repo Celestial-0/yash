@@ -11,9 +11,9 @@ let icons: string[] = TECHNOLOGIES.map( tech => tech.simpleIcon  );
 export const Technology = () => {
 
     return (
-        <Flex direction={ 'column' } gap={ '5' } className='w-full'>
+        <Flex direction={ 'column' } gap={ '6' } className='w-full' mb={ '2' }>
             <SectionHeading title={ 'Skills' } />
-            <Flex gap={ '2' } wrap={ 'wrap' }>
+            <Flex gap={ '3' } wrap={ 'wrap' }>
                 { TECHNOLOGIES.map((tech, index) => (
                     <BlurFade key={ index } delay={ 0.25 * index } inView>
                         <Badge variant={ 'solid' } highContrast>

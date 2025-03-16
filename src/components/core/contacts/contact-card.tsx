@@ -5,15 +5,21 @@ import { AuroraText } from "@/components/magicui/aurora-text";
 
 export default function ContactCard() {
   return (
-    <Flex direction="column" align="center" className="text-center w-full" >
-      <Heading size="5" className="font-bold tracking-tighter pb-6 ">
-        Want to chat? Just shoot me a DM {" "}
+    <Flex direction="column" align="center" className="text-center w-full">
+      <Heading size="6" className="font-bold tracking-tighter pb-6">
+        Want to chat? Just shoot me a DM{" "}
         <Link
-
           href="https://x.com/Celestial_Yash"
           className="text-primary hover:underline"
         >
-          <AuroraText >with a direct question on Twitter &nbsp; </AuroraText>
+          <AuroraText>&nbsp;with a direct question on Twitter&nbsp;</AuroraText>
+        </Link>
+        or{" "}
+        <Link
+          href="https://instagram.com/YOUR_INSTAGRAM"
+          className="text-primary hover:underline"
+        >
+          <AuroraText>&nbsp;drop a message on Instagram&nbsp;</AuroraText>
         </Link>
         and I'll respond whenever I can. I will ignore all soliciting.
       </Heading>

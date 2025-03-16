@@ -5,9 +5,9 @@ import { ProjectCard } from './project-card';
 
 export const Projects = () => {
     return (
-        <Flex id="projects" direction={ 'column' } gap={ '5' }>
+        <Flex id="projects" direction={ 'column' } gap={ '6' } mb={ '2' }>
             <SectionHeading title={ 'Projects' } />
-            <Flex className={ 'w-full' } gap={ '4' } wrap={ 'wrap' } justify={ 'between' }>
+            <Flex className={ 'w-full' } gap={ '3' } wrap={ 'wrap' } justify={ 'between' }>
                 { PROJECTS.map((project, index) => (
                     <ProjectCard project={ project } key={ index } index={ index } />
                 ))}

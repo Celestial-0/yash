@@ -7,7 +7,7 @@ import { Selfie } from "./selfie";
 
 export const About = () => {
   return (
-    <Flex direction={"column"} gap={"8"}>
+    <Flex direction={"column"} gap={"6"} mb={'2'}>
       <Selfie />
       <AboutHeading />
       <Flex direction={"column"} gap={"3"}>
