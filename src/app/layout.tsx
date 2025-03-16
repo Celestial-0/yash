@@ -7,6 +7,7 @@ import "./globals.css";
 import { GridBackground } from '@/components/core/grid-background';
 import { ThemeProvider } from 'next-themes';
 
+
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
     variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                         </Container>
                     </Theme>
                 </ThemeProvider>
+                
             </body>
         </html>
     );
