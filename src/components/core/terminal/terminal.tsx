@@ -164,7 +164,7 @@ const commands: { [key: string]: (props: CommandProps) => void } = {
           </p>,
           <p key="info-4" className="is-rainbow-blue">
             To get in contact{" "}
-            <a href="#" onClick={() => { window.location.href = "/contact"; }}>
+            <a href="#" onClick={() => { window.location.href = "/#contact"; }}>
               Click here
             </a>
           </p>,
