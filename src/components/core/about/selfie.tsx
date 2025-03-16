@@ -1,12 +1,9 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import Image from "next/image";
-import { Meteor } from "../meteors-ui";
 
 export const Selfie = () => {
   return (
     <>
-      <Meteor />
-
       <BlurFade className={"self-center"} inView>
         <Image
           priority

@@ -17,8 +17,8 @@ export default function Page() {
       <Work />
       <Education />
       <Technology />
-      <Stats/>
       <Projects />
+      <Stats/>
       <Contact/>
     </Flex>
   );

@@ -7,7 +7,7 @@ import { SectionHeading } from '../section-heading';
 export const Work = () => {
 
     return (
-        <Flex direction={ 'column' } gap={ '6' }>
+        <Flex direction={ 'column' } gap={ '6' } mb={ '2' }>
             <SectionHeading title={ 'Work Experience' } />
             <Flex direction={ 'column' } className={ 'w-full' } gap={ '3' }>
                 { WORK_EXPERIENCES.map((work, index) => (
