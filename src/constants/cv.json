@@ -1,0 +1,127 @@
+{
+    "name": "Yash Kumar Singh",
+    "dob": "2005-05-30",
+    "email_address": "proyash3053@gmail.com",
+    "professional_email_address": "yashkumarsingh@ieee.org",
+    "education": {
+      "Galgotias University": {
+        "role": "Bachelor of Technology - BTech, Computer Science",
+        "dates": {
+          "start": "2023-09-01",
+          "finish": "2027-06-01"
+        },
+        "description": "Studied various computer science topics including algorithms, data structures, and software engineering.",
+        "logoUrl": "https://media.licdn.com/dms/image/v2/C510BAQFLsEc8TmdHyA/company-logo_200_200/company-logo_200_200/0/1630575433216/galgotiasuniversity_logo?e=1749686400&v=beta&t=oG277QwQ_QlYKoWhxeo9Xva9z0d_LE_cE3TAAOvNNn4"
+      }
+    },
+    "projects": {
+      "FILE MANAGER": {
+        "imgSrc": "https://github.com/Celestial-0/FILE-MANAGER/blob/main/assets/ss/Screenshot%202024-05-22%20071713.png",
+        "technologies": [
+          "Python",
+          "FLET",
+          "Matplotlib",
+          "NumPy",
+          "Pytest"
+        ],
+        "shortDescription": "_a file management automation tool.",
+        "longDescription": "This is a Python-based file management application developed using the Flet framework. The application allows users to organize files in a specified directory into categorized folders based on their file extensions.\n\nIt also provides functionalities to add custom folders with specific file extensions, create backups before organizing, and generate a summary of the file types and their sizes.",
+        "githubLink": "https://github.com/Celestial-0/FILE-MANAGER"
+      },
+      "Currency Converter Application": {
+        "imgSrc": "https://github.com/Celestial-0/ReactMinorProjects/blob/main/CurrencyConverter/src/assets/dark_mode.png?raw=true",
+        "technologies": [
+          "React",
+          "Tailwind",
+          "JavaScript",
+          "HTML5",
+          "CSS3"
+        ],
+        "shortDescription": "_a Currency Converter web .",
+        "longDescription": "Currency Converter web application built using React.js. It allows users to convert amounts between different currencies using real-time exchange rates fetched from an API. The app also features a dark mode toggle 🌙☀️ and the ability to swap 🔄 between the source and target currencies.",
+        "githubLink": "https://github.com/Celestial-0/ReactMinorProjects/tree/main/CurrencyConverter"
+      }
+    },
+    "technologies": {
+      "programming_languages": [
+        "Python",
+        "C",
+        "C++",
+        "Rust",
+        "Java"
+      ],
+      "frontend": [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Material UI"
+      ],
+      "backend": [
+        "Node.js",
+        "Django"
+      ],
+      "databases": [
+        "MongoDB",
+        "PostgreSQL",
+        "MySQL"
+      ],
+      "data_science": [
+        "NumPy",
+        "Pandas",
+        "Matplotlib",
+        "Seaborn"
+      ],
+      "tools_platforms": [
+        "Docker",
+        "Git",
+        "GitHub",
+        "Vercel"
+      ],
+      "ides": [
+        "Spyder",
+        "Visual Studio Code",
+        "Anaconda",
+        "IntelliJ IDEA"
+      ]
+    },
+    "work_experiences": [
+      {
+        "company": "IEEE GU",
+        "role": "Core Member",
+        "startDate": "2024-09-01",
+        "endDate": "Present",
+        "description": "Organizing tech events, workshops, and hackathons while fostering innovation and networking at IEEE GU.",
+        "logoUrl": "https://media.licdn.com/dms/image/v2/D4E0BAQFcmWw6fYQ_MA/company-logo_200_200/company-logo_200_200/0/1719257749735?e=1749686400&v=beta&t=Wsc7M4ULLy7jrAcUIHRbzS96L-RKNpguFdoeAOS96kI"
+      },
+      {
+        "company": "AICSSYC",
+        "role": "Organizer",
+        "startDate": "2024-10-01",
+        "endDate": "2024-10-20",
+        "description": "Coordinated and managed event logistics for AICSSYC 2024, ensuring smooth execution and a great experience for participants.",
+        "logoUrl": "https://media.licdn.com/dms/image/v2/D560BAQE9wxgLyTY_Wg/company-logo_200_200/company-logo_200_200/0/1725691654365/aicssyc_logo?e=1749686400&v=beta&t=8wywmMT5AFGGdYVFTzaEKXLmEtQZakCb5KrtIjg744Q"
+      },
+      {
+        "company": "IEEE Computer Society",
+        "role": "Member",
+        "startDate": "2024-09-01",
+        "endDate": "Present",
+        "description": "Engaging in technical discussions, networking, and learning opportunities as a member of the IEEE Computer Society.",
+        "logoUrl": "https://media.licdn.com/dms/image/v2/C560BAQGgbT-kdahf5A/company-logo_200_200/company-logo_200_200/0/1640027182473/ieee_computer_society_logo?e=1749686400&v=beta&t=6yfCvXYlRlc4-hloUQOVJY3cOPY3Q9b9-l0OMLQ05vQ"
+      },
+      {
+        "company": "CyberCell GU",
+        "role": "Member",
+        "startDate": "2023-10-01",
+        "endDate": "Present",
+        "description": "Exploring cybersecurity concepts, ethical hacking, and digital forensics while contributing to CyberCell GU initiatives.",
+        "logoUrl": "https://media.licdn.com/dms/image/v2/D4D0BAQH4BusOZlcEvQ/company-logo_200_200/company-logo_200_200/0/1693504304476?e=1749686400&v=beta&t=0bIzRDBU3zBYrs_JvnLbf9AVYsZK2Joc9c3-G75vhjg"
+      }
+    ]
+  }
+  
