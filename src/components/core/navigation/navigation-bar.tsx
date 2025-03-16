@@ -7,7 +7,6 @@ import {
   FaFolderOpen,
   FaGithub,
   FaLinkedin,
-  FaNewspaper,
   FaTerminal,
 } from "react-icons/fa6";
 import { IoSunny, IoMoon } from "react-icons/io5";

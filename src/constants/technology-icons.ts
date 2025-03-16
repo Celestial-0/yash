@@ -8,8 +8,7 @@ import {
     RiTailwindCssFill,  
     RiJavascriptFill,  
     RiGitBranchFill,  
-    RiGithubFill,  
-    RiUbuntuFill  
+    RiGithubFill   
 } from 'react-icons/ri';  
 import {  
     BiLogoTypescript,  

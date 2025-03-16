@@ -21,7 +21,7 @@ export default function ContactCard() {
         >
           <AuroraText >&nbsp;drop a message on Instagram&nbsp;</AuroraText>
         </Link>
-        and I'll respond whenever I can. I will ignore all soliciting.
+        and I&apos;ll respond whenever I can. I will ignore all soliciting.
       </Heading>
     </Flex>
   );

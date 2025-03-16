@@ -4,7 +4,7 @@ import { TECHNOLOGIES } from '@/constants/technologies';
 import { Badge, Flex } from '@radix-ui/themes';
 import { SectionHeading } from '../section-heading';
 
-let icons: string[] = TECHNOLOGIES.map( tech => tech.simpleIcon  );
+const icons: string[] = TECHNOLOGIES.map( tech => tech.simpleIcon  );
 // icons.push( ...CustomIcons );
 
 
