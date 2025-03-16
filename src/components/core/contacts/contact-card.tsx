@@ -6,7 +6,7 @@ import { AuroraText } from "@/components/magicui/aurora-text";
 export default function ContactCard() {
   return (
     <Flex direction="column" align="center" className="text-center w-full">
-      <Heading size="6" className="font-bold tracking-tighter pb-6">
+      <Heading size="7" className="font-bold tracking-tighter pb-6">
         Want to chat? Just shoot me a DM{" "}
         <Link
           href="https://x.com/Celestial_Yash"
