@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useEffect, useState } from "react";
-import { ActivityCalendar, ThemeInput } from "react-activity-calendar";
+import { ActivityCalendar, ThemeInput } from "@/components/core/ActivityCalendar/ActivityCalendar"
 import { Tooltip as MuiTooltip } from "@mui/material";
 
 export function GitHubCalendar() {
