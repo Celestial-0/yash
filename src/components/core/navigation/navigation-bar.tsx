@@ -42,11 +42,6 @@ export const NavigationBar = () => {
             <FaFolderOpen size={"1.10rem"} />
           </NavigationLink>
         </DockIcon>
-        <DockIcon>
-          <NavigationLink href={"/stats"} label={"Stats"}>
-            <FaNewspaper size={"1.10rem"} />
-          </NavigationLink>
-        </DockIcon>
         <Separator orientation={"vertical"} size={"4"} />
         <DockIcon>
           <NavigationLink

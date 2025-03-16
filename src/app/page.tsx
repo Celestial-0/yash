@@ -6,6 +6,7 @@ import { Projects } from "@/components/core/projects/projects";
 import { Work } from "@/components/core/work/work";
 import { Contact } from "@/components/core/contacts/contacts";
 import { Flex } from "@radix-ui/themes";
+import Stats from "@/components/core/stats/stats";
 
 
 export default function Page() {
@@ -16,6 +17,7 @@ export default function Page() {
       <Work />
       <Education />
       <Technology />
+      <Stats/>
       <Projects />
       <Contact/>
     </Flex>
