@@ -16,7 +16,7 @@ export default function ContactCard() {
         </Link>
         or{" "}
         <Link
-          href="https://instagram.com/YOUR_INSTAGRAM"
+          href="https://www.instagram.com/yash.kumar.singh.30/"
           className="text-primary hover:underline"
         >
           <AuroraText>&nbsp;drop a message on Instagram&nbsp;</AuroraText>
