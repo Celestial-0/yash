@@ -19,16 +19,16 @@ export const About = () => {
           >
             I am Yash Kumar Singh, a B.Tech student at Galgotias University with
             a strong foundation in{" "}
-            <Link href={"/"}>Data Structures & Algorithms (DSA)</Link> and a
-            keen interest in <Link href={"/"}>AI/ML</Link>. Proficient in{" "}
-            <Link href={"/"}>Python, C/C++, and Java</Link>, I focus on writing
+            <Link href={undefined}>Data Structures & Algorithms (DSA)</Link> and a
+            keen interest in <Link href={undefined}>AI/ML</Link>. Proficient in{" "}
+            <Link href={undefined}>Python, C/C++, and Java</Link>, I focus on writing
             efficient code and solving complex problems. With experience in
             full-stack development using{" "}
-            <Link href={"/"}>JavaScript, React, Express, and Django</Link>, I
+            <Link href={undefined}>JavaScript, React, Express, and Django</Link>, I
             build scalable, user-centric applications. Constantly exploring
             emerging technologies, I strive to bridge the gap between theory and
             real-world implementation. Open to collaborations and new
-            opportunities—<Link href={"/"}>let’s connect!</Link>
+            opportunities—<Link href={"/#contact"}>let’s connect!</Link>
           </AnimatedShinyText>
         </BoxReveal>
       </Flex>

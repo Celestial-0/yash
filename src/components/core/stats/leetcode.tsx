@@ -18,7 +18,7 @@ export function Leetcode({ username = "Celestial-0" }) {
     <Flex justify="center" align="center" className="p-4">
       {mounted && theme ? (
         <Image
-        src={`https://leetcard.jacoblin.cool/${username}?theme=${theme || "light"}&ext=heatmap&font=geistMono&border=0&radius=20&hide=ranking`}
+        src={`https://leetcard.jacoblin.cool/${username}?theme=${theme || "dark"}&ext=heatmap&font=geistMono&border=0&radius=20&hide=ranking`}
         width={500} 
         height={200}
           alt={`${username}'s Leetcode Stats`}

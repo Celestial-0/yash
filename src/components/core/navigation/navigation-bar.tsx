@@ -32,7 +32,7 @@ export const NavigationBar = () => {
           </NavigationLink>
         </DockIcon>
         <DockIcon>
-          <NavigationLink href={"/"} label={"Terminal"}>
+          <NavigationLink href={"/terminal"} label={"Terminal"}>
             <FaTerminal size={"1.10rem"} />
           </NavigationLink>
         </DockIcon>
