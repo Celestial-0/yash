@@ -14,7 +14,7 @@ export const Contact = () => {
       <BlurFade delay={BLUR_FADE_DELAY * 16}>
         <Flex direction="column" gap="3">
           <SectionHeading title="Contact Me" />
-          <Heading size="8" weight="bold" align="center">
+          <Heading size={{ initial: '4', sm: '8' }} weight="bold" align="center">
             Get in Touch
           </Heading>
           <ContactCard />
