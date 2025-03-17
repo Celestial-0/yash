@@ -1,16 +1,119 @@
 'use client';
 'use strict';
 
-import React from 'react';
-import { useTheme } from "next-themes";
+import React, {
+  CSSProperties,
+  DOMAttributes,
+  ForwardedRef,
+  HTMLAttributes,
+  JSXElementConstructor,
+  ReactElement,
+  SVGAttributes
+} from 'react';
+import { useTheme } from 'next-themes';
 import * as dateFns from 'date-fns';
 import { jsx as _jsx, jsxs as _jsxs } from 'react/jsx-runtime';
 
+/* ========================================================================
+   TYPES
+   ======================================================================== */
+export type Activity = {
+  date: string;
+  count: number;
+  level: number;
+};
+
+export type DayIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+export type DayName = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
+
+export type Labels = Partial<{
+  months: Array<string>;
+  weekdays: Array<string>;
+  totalCount: string;
+  legend: Partial<{
+    less: string;
+    more: string;
+  }>;
+}>;
+
+export type Color = string;
+export type ColorScale = Array<Color>;
+
+export type ThemeInput =
+  | {
+      light: ColorScale;
+      dark?: ColorScale;
+    }
+  | {
+      light?: ColorScale;
+      dark: ColorScale;
+    };
+
+export type BlockAttributes = SVGAttributes<SVGRectElement> & HTMLAttributes<SVGRectElement>;
+export type BlockElement = ReactElement<BlockAttributes, string | JSXElementConstructor<SVGRectElement>>;
+
+
+export type SVGRectEventHandler = Omit<
+  DOMAttributes<SVGRectElement>,
+  "css" | "children" | "dangerouslySetInnerHTML"
+>;
+
+export type EventHandlerMap = {
+  [key in keyof SVGRectEventHandler]: (
+    ...event: Parameters<NonNullable<SVGRectEventHandler[keyof SVGRectEventHandler]>>
+  ) => (activity: Activity) => void;
+};
+
+export type Props = {
+  /**
+   * List of calendar entries. Every `Activity` object requires an ISO 8601
+   * `date` string in the format `yyyy-MM-dd`, a `count` property with the
+   * amount of tracked data and a `level` property in the range `0-maxLevel`
+   * to specify activity intensity. The `maxLevel` prop is 4 by default.
+   *
+   * For missing dates, no activity is assumed.
+   *
+   * Example:
+   *
+   * ```json
+   * {
+   *   "date": "2021-02-20",
+   *   "count": 16,
+   *   "level": 3
+   * }
+   * ```
+   */
+  data: Array<Activity>;
+  blockMargin?: number;
+  blockRadius?: number;
+  blockSize?: number;
+  colorScheme?: "light" | "dark";
+  eventHandlers?: EventHandlerMap;
+  fontSize?: number;
+  hideColorLegend?: boolean;
+  hideMonthLabels?: boolean;
+  hideTotalCount?: boolean;
+  labels?: Labels;
+  maxLevel?: number;
+  loading?: boolean;
+  ref?: ForwardedRef<HTMLElement>;
+  renderBlock?: (block: BlockElement, activity: Activity) => ReactElement;
+  renderColorLegend?: (block: BlockElement, level: number) => ReactElement;
+  showWeekdayLabels?: boolean | Array<DayName>;
+  style?: CSSProperties;
+  theme?: ThemeInput;
+  totalCount?: number;
+  weekStart?: DayIndex;
+};
+
+/* ========================================================================
+   CONSTANTS & DEFAULTS
+   ======================================================================== */
 const NAMESPACE = 'react-activity-calendar';
 const LABEL_MARGIN = 8; // px
 
 const DEFAULT_MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const DEFAULT_LABELS = {
+const DEFAULT_LABELS: Labels = {
   months: DEFAULT_MONTH_LABELS,
   weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   totalCount: '{{count}} activities in {{year}}',
@@ -20,10 +123,10 @@ const DEFAULT_LABELS = {
   }
 };
 
-// Remove the custom useColorScheme hook
-// function useColorScheme() { ... }
-
-function useLoadingAnimation(zeroColor, colorScheme) {
+/* ========================================================================
+   UTILS & HOOKS
+   ======================================================================== */
+function useLoadingAnimation(zeroColor: string, colorScheme: "light" | "dark") {
   React.useEffect(() => {
     const colorLoading = `oklab(from ${zeroColor} l a b)`;
     const colorActive =
@@ -52,13 +155,13 @@ function useLoadingAnimation(zeroColor, colorScheme) {
   }, [zeroColor, colorScheme]);
 }
 
-const query = '(prefers-reduced-motion: reduce)';
+const prefersReducedMotionQuery = '(prefers-reduced-motion: reduce)';
 function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = React.useState(true);
   React.useEffect(() => {
-    const mediaQuery = window.matchMedia(query);
+    const mediaQuery = window.matchMedia(prefersReducedMotionQuery);
     setPrefersReducedMotion(mediaQuery.matches);
-    const onChange = event => {
+    const onChange = (event: MediaQueryListEvent) => {
       setPrefersReducedMotion(event.matches);
     };
     mediaQuery.addEventListener('change', onChange);
@@ -69,7 +172,7 @@ function usePrefersReducedMotion() {
   return prefersReducedMotion;
 }
 
-function validateActivities(activities, maxLevel) {
+function validateActivities(activities: Array<Activity>, maxLevel: number) {
   if (activities.length === 0) {
     throw new Error('Activity data must not be empty.');
   }
@@ -86,12 +189,10 @@ function validateActivities(activities, maxLevel) {
   }
 }
 
-function groupByWeeks(activities, weekStart = 0 // 0 = Sunday
-) {
+function groupByWeeks(activities: Array<Activity>, weekStart: DayIndex = 0) {
   const normalizedActivities = fillHoles(activities);
 
-  // Determine the first date of the calendar. If the first date is not the
-  // passed weekday, the respective weekday one week earlier is used.
+  // Determine first calendar date based on weekStart
   const firstActivity = normalizedActivities[0];
   const firstDate = dateFns.parseISO(firstActivity.date);
   const firstCalendarDate =
@@ -99,23 +200,19 @@ function groupByWeeks(activities, weekStart = 0 // 0 = Sunday
       ? firstDate
       : dateFns.subWeeks(dateFns.nextDay(firstDate, weekStart), 1);
 
-  // To correctly group activities by week, it is necessary to left-pad the list
-  // because the first date might not be set start weekday.
+  // Left-pad activities if first date does not start with weekStart
   const paddedActivities = [
     ...Array(dateFns.differenceInCalendarDays(firstDate, firstCalendarDate)).fill(undefined),
     ...normalizedActivities
   ];
   const numberOfWeeks = Math.ceil(paddedActivities.length / 7);
 
-  // Finally, group activities by week
-  return range(numberOfWeeks).map(weekIndex => paddedActivities.slice(weekIndex * 7, weekIndex * 7 + 7));
+  return range(numberOfWeeks).map(weekIndex =>
+    paddedActivities.slice(weekIndex * 7, weekIndex * 7 + 7)
+  );
 }
 
-/**
- * The calendar expects a continuous sequence of days,
- * so fill gaps with empty activity data.
- */
-function fillHoles(activities) {
+function fillHoles(activities: Array<Activity>) {
   const calendar = new Map(activities.map(a => [a.date, a]));
   const firstActivity = activities[0];
   const lastActivity = activities[activities.length - 1];
@@ -125,17 +222,17 @@ function fillHoles(activities) {
   }).map(day => {
     const date = dateFns.formatISO(day, { representation: 'date' });
     if (calendar.has(date)) {
-      return calendar.get(date);
+      return calendar.get(date)!;
     }
     return { date, count: 0, level: 0 };
   });
 }
 
-function getClassName(name) {
+function getClassName(name: string) {
   return `${NAMESPACE}__${name}`;
 }
 
-function generateEmptyData() {
+function generateEmptyData(): Array<Activity> {
   const year = new Date().getFullYear();
   const days = dateFns.eachDayOfInterval({
     start: new Date(year, 0, 1),
@@ -148,13 +245,16 @@ function generateEmptyData() {
   }));
 }
 
-function range(n) {
-  return [...Array(n).keys()];
+function range(n: number) {
+  return Array.from({ length: n }, (_, i) => i);
 }
 
-function getMonthLabels(weeks, monthNames = DEFAULT_MONTH_LABELS) {
+function getMonthLabels(
+  weeks: Array<Array<Activity | undefined>>,
+  monthNames = DEFAULT_MONTH_LABELS
+) {
   return weeks
-    .reduce((labels, week, weekIndex) => {
+    .reduce((labels: Array<{ weekIndex: number; label: string }>, week, weekIndex) => {
       const firstActivity = week.find(activity => activity !== undefined);
       if (!firstActivity) {
         throw new Error(`Unexpected error: Week ${weekIndex + 1} is empty.`);
@@ -171,18 +271,10 @@ function getMonthLabels(weeks, monthNames = DEFAULT_MONTH_LABELS) {
       return labels;
     }, [])
     .filter(({ weekIndex }, index, labels) => {
-      // Labels should only be shown if there is "enough" space (data).
-      // This is a naive implementation that does not take the block size,
-      // font size, etc. into account.
       const minWeeks = 3;
-
-      // Skip the first month label if there is not enough space to the next one.
       if (index === 0) {
         return labels[1] && labels[1].weekIndex - weekIndex >= minWeeks;
       }
-
-      // Skip the last month label if there is not enough data in that month
-      // to avoid overflowing the calendar on the right.
       if (index === labels.length - 1) {
         return weeks.slice(weekIndex).length >= minWeeks;
       }
@@ -190,7 +282,11 @@ function getMonthLabels(weeks, monthNames = DEFAULT_MONTH_LABELS) {
     });
 }
 
-function maxWeekdayLabelWidth(labels, showWeekdayLabel, fontSize) {
+function maxWeekdayLabelWidth(
+  labels: Array<string>,
+  showWeekdayLabel: { byDayIndex: (index: number) => boolean },
+  fontSize: number
+) {
   if (labels.length !== 7) {
     throw new Error('Exactly 7 labels, one for each weekday must be passed.');
   }
@@ -203,7 +299,7 @@ function maxWeekdayLabelWidth(labels, showWeekdayLabel, fontSize) {
   );
 }
 
-function calcTextDimensions(text, fontSize) {
+function calcTextDimensions(text: string, fontSize: number) {
   if (typeof document === 'undefined' || typeof window === 'undefined') {
     return { width: 0, height: 0 };
   }
@@ -228,31 +324,27 @@ function calcTextDimensions(text, fontSize) {
   return { width: boundingBox.width, height: boundingBox.height };
 }
 
-function initWeekdayLabels(input, weekStart) {
-  if (!input)
-    return { byDayIndex: () => false, shouldShow: false };
+function initWeekdayLabels(input: boolean | Array<DayName> | undefined, weekStart: DayIndex) {
+  if (!input) return { byDayIndex: () => false, shouldShow: false };
 
-  // Default: Show every second day of the week.
   if (input === true) {
     return {
-      byDayIndex: index => {
-        return (7 + index - weekStart) % 7 % 2 !== 0;
-      },
+      byDayIndex: (index: number) => (7 + index - weekStart) % 7 % 2 !== 0,
       shouldShow: true
     };
   }
-  const indexed = [];
+  const indexed: boolean[] = [];
   for (const name of input) {
-    const index = dayNameToIndex[name.toLowerCase()];
+    const index = dayNameToIndex[name.toLowerCase() as DayName];
     indexed[index] = true;
   }
   return {
-    byDayIndex: index => indexed[index] ?? false,
+    byDayIndex: (index: number) => indexed[index] ?? false,
     shouldShow: input.length > 0
   };
 }
 
-const dayNameToIndex = {
+const dayNameToIndex: Record<DayName, number> = {
   sun: 0,
   mon: 1,
   tue: 2,
@@ -262,28 +354,35 @@ const dayNameToIndex = {
   sat: 6
 };
 
-function createTheme(input, steps = 5) {
+function createTheme(input: ThemeInput | undefined, steps = 5) {
   const defaultTheme = createDefaultTheme(steps);
   if (input) {
     validateInput(input, steps);
     input.light = input.light ?? defaultTheme.light;
     input.dark = input.dark ?? defaultTheme.dark;
     return {
-      light: isPair(input.light) ? calcColorScale(input.light, steps) : input.light,
-      dark: isPair(input.dark) ? calcColorScale(input.dark, steps) : input.dark
+      light:
+        Array.isArray(input.light) && isPair(input.light)
+          ? Array.isArray(input.light) && input.light.length === 2
+            ? calcColorScale(input.light as [string, string], steps)
+            : input.light
+          : input.light,
+        dark: Array.isArray(input.dark) && input.dark.length === 2
+          ? calcColorScale(input.dark as [string, string], steps)
+          : input.dark
     };
   }
   return defaultTheme;
 }
 
-function createDefaultTheme(steps) {
+function createDefaultTheme(steps: number) {
   return {
     light: calcColorScale(['hsl(0, 0%, 92%)', 'hsl(0, 0%, 26%)'], steps),
     dark: calcColorScale(['hsl(0, 0%, 22%)', 'hsl(0, 0%, 92%)'], steps)
   };
 }
 
-function validateInput(input, steps) {
+function validateInput(input: ThemeInput, steps: number) {
   if (typeof input !== 'object' || (input.light === undefined && input.dark === undefined)) {
     throw new Error(
       `The theme object must contain at least one of the fields "light" and "dark" with exactly 2 or ${steps} colors respectively.`
@@ -313,54 +412,51 @@ function validateInput(input, steps) {
   }
 }
 
-function calcColorScale([start, end], steps) {
+function calcColorScale([start, end]: [string, string], steps: number) {
   return range(steps).map(i => {
-    // In the loading animation the zero color is used.
-    // However, Safari 16 crashes if a CSS color-mix expression like below is
-    // combined with relative color syntax to calculate a hue variation for the
-    // animation. Since the start and end colors do not need to be mixed, they
-    // can be returned directly to work around this issue.
     switch (i) {
       case 0:
         return start;
       case steps - 1:
         return end;
       default: {
-        const pos = i / (steps - 1) * 100;
+        const pos = (i / (steps - 1)) * 100;
         return `color-mix(in oklab, ${end} ${parseFloat(pos.toFixed(2))}%, ${start})`;
       }
     }
   });
 }
 
-function isPair(val) {
+function isPair(val: Array<unknown>) {
   return val.length === 2;
 }
 
+/* ========================================================================
+   STYLES
+   ======================================================================== */
 const styles = {
-  container: fontSize => ({
+  container: (fontSize: number): CSSProperties => ({
     width: 'max-content',
-    // Calendar should not grow
     maxWidth: '100%',
-    // Do not remove - parent might be a flexbox
     display: 'flex',
     flexDirection: 'column',
     gap: '8px',
     fontSize: `${fontSize}px`
   }),
-  scrollContainer: fontSize => ({
+  scrollContainer: (fontSize: number): CSSProperties => ({
     maxWidth: '100%',
     overflowX: 'auto',
     overflowY: 'hidden',
-    paddingTop: Math.ceil(0.1 * fontSize) // SVG <text> overflows in Firefox at y=0
+    paddingTop: Math.ceil(0.1 * fontSize)
   }),
   calendar: {
     display: 'block',
-    // SVGs are inline-block by default
-    overflow: 'visible' // Weekday labels are rendered left of the container
+    overflow: 'visible'
   },
-  rect: colorScheme => ({
-    stroke: colorScheme === 'light' ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.04)'
+  rect: (colorScheme: "light" | "dark"): CSSProperties => ({
+    stroke: colorScheme === 'light'
+      ? 'rgba(0, 0, 0, 0.08)'
+      : 'rgba(255, 255, 255, 0.04)'
   }),
   footer: {
     container: {
@@ -378,7 +474,10 @@ const styles = {
   }
 };
 
-const ActivityCalendar = React.forwardRef(
+/* ========================================================================
+   COMPONENT: ActivityCalendar
+   ======================================================================== */
+export const ActivityCalendar = React.forwardRef<HTMLElement, Omit<Props, "ref">>(
   (
     {
       data: activities,
@@ -400,7 +499,7 @@ const ActivityCalendar = React.forwardRef(
       style: styleProp = {},
       theme: themeProp = undefined,
       totalCount: totalCountProp = undefined,
-      weekStart = 0 // Sunday
+      weekStart = 0
     },
     ref
   ) => {
@@ -412,10 +511,9 @@ const ActivityCalendar = React.forwardRef(
     maxLevel = Math.max(1, maxLevel);
     const theme = createTheme(themeProp, maxLevel + 1);
 
-    // Use next-themes to get the current theme:
+    // Get current system theme via next-themes
     const { theme: nextTheme } = useTheme();
-    const colorScheme = colorSchemeProp ?? nextTheme;
-
+    const colorScheme = colorSchemeProp ?? (nextTheme as "light" | "dark");
     const colorScale = theme[colorScheme];
     useLoadingAnimation(colorScale[0], colorScheme);
     const useAnimation = !usePrefersReducedMotion();
@@ -430,11 +528,10 @@ const ActivityCalendar = React.forwardRef(
     const labelHeight = hideMonthLabels ? 0 : fontSize + LABEL_MARGIN;
     const weekdayLabels = initWeekdayLabels(showWeekdayLabels, weekStart);
 
-    // Must be calculated on the client or SSR hydration errors will occur
-    // because server and client HTML would not match.
+    // Calculate weekday label offset on the client to avoid hydration issues
     const weekdayLabelOffset =
       isClient && weekdayLabels.shouldShow
-        ? maxWeekdayLabelWidth(labels.weekdays, weekdayLabels, fontSize) + LABEL_MARGIN
+        ? maxWeekdayLabelWidth(labels.weekdays || [], weekdayLabels, fontSize) + LABEL_MARGIN
         : undefined;
 
     function getDimensions() {
@@ -443,11 +540,11 @@ const ActivityCalendar = React.forwardRef(
         height: labelHeight + (blockSize + blockMargin) * 7 - blockMargin
       };
     }
-    function getEventHandlers(activity) {
+    function getEventHandlers(activity: Activity) {
       return Object.keys(eventHandlers).reduce(
         (handlers, key) => ({
           ...handlers,
-          [key]: event => eventHandlers[key]?.(event)(activity)
+          [key]: (event: Parameters<NonNullable<SVGRectEventHandler[keyof SVGRectEventHandler]>>[0]) => eventHandlers[key as keyof EventHandlerMap]?.(event)(activity)
         }),
         {}
       );
@@ -456,9 +553,7 @@ const ActivityCalendar = React.forwardRef(
       return weeks
         .map((week, weekIndex) =>
           week.map((activity, dayIndex) => {
-            if (!activity) {
-              return null;
-            }
+            if (!activity) return null;
             const loadingAnimation =
               loading && useAnimation
                 ? {
@@ -495,9 +590,7 @@ const ActivityCalendar = React.forwardRef(
         );
     }
     function renderFooter() {
-      if (hideTotalCount && hideColorLegend) {
-        return null;
-      }
+      if (hideTotalCount && hideColorLegend) return null;
       const totalCount =
         typeof totalCountProp === 'number'
           ? totalCountProp
@@ -523,7 +616,7 @@ const ActivityCalendar = React.forwardRef(
                 className: getClassName('legend-colors'),
                 style: styles.footer.legend,
                 children: [
-                  _jsx("span", { style: { marginRight: '0.4em' }, children: labels.legend.less }),
+                  _jsx("span", { style: { marginRight: '0.4em' }, children: labels.legend?.less ?? 'Less' }),
                   range(maxLevel + 1).map(level => {
                     const block = _jsx("svg", {
                       width: blockSize,
@@ -539,7 +632,7 @@ const ActivityCalendar = React.forwardRef(
                     });
                     return _jsx(React.Fragment, { children: renderColorLegend ? renderColorLegend(block, level) : block }, level);
                   }),
-                  _jsx("span", { style: { marginLeft: '0.4em' }, children: labels.legend.more })
+                  _jsx("span", { style: { marginLeft: '0.4em' }, children: labels.legend?.more ?? 'More' })
                 ]
               })
           ]
@@ -548,18 +641,14 @@ const ActivityCalendar = React.forwardRef(
       );
     }
     function renderWeekdayLabels() {
-      if (!weekdayLabels.shouldShow) {
-        return null;
-      }
+      if (!weekdayLabels.shouldShow) return null;
       return _jsx(
         "g",
         {
           className: getClassName('legend-weekday'),
           children: range(7).map(index => {
             const dayIndex = (index + weekStart) % 7;
-            if (!weekdayLabels.byDayIndex(dayIndex)) {
-              return null;
-            }
+            if (!weekdayLabels.byDayIndex(dayIndex)) return null;
             return _jsx(
               "text",
               {
@@ -568,7 +657,7 @@ const ActivityCalendar = React.forwardRef(
                 dominantBaseline: "central",
                 textAnchor: "end",
                 fill: "currentColor",
-                children: labels.weekdays[dayIndex]
+                children: labels.weekdays ? labels.weekdays[dayIndex] : ''
               },
               index
             );
@@ -578,14 +667,12 @@ const ActivityCalendar = React.forwardRef(
       );
     }
     function renderMonthLabels() {
-      if (hideMonthLabels) {
-        return null;
-      }
+      if (hideMonthLabels) return null;
       return _jsx(
         "g",
         {
           className: getClassName('legend-month'),
-          children: getMonthLabels(weeks, labels.months).map(({ label, weekIndex }) =>
+          children: getMonthLabels(weeks, labels.months || DEFAULT_MONTH_LABELS).map(({ label, weekIndex }) =>
             _jsx(
               "text",
               {
@@ -638,7 +725,12 @@ const ActivityCalendar = React.forwardRef(
 );
 
 ActivityCalendar.displayName = 'ActivityCalendar';
-const Skeleton = props => _jsx(ActivityCalendar, { data: [], ...props });
 
-export { ActivityCalendar, Skeleton };
+/* ========================================================================
+   COMPONENT: Skeleton
+   ======================================================================== */
+export const Skeleton = (props: Omit<Props, "data">) =>
+  _jsx(ActivityCalendar, { data: [], ...props });
+
+// Export default component
 export default ActivityCalendar;

@@ -2,7 +2,8 @@
 
 import React from "react";
 import { useEffect, useState } from "react";
-import { ActivityCalendar, ThemeInput } from "@/components/core/ActivityCalendar/ActivityCalendar"
+import ActivityCalendar from "@/components/core/ActivityCalendar/ActivityCalendar"
+import type { ThemeInput } from "@/components/core/ActivityCalendar/ActivityCalendar"
 import { Tooltip as MuiTooltip } from "@mui/material";
 
 export function GitHubCalendar() {
@@ -28,7 +29,6 @@ export function GitHubCalendar() {
     return <div className="p-4 ">Loading...</div>;
   }
 
-  // If contributions is empty, optionally render a message or handle it accordingly.
   if (!contributions.length) {
     return <div className="p-4 ">No contributions found.</div>;
   }
@@ -37,10 +37,6 @@ export function GitHubCalendar() {
     light: ["hsl(0, 0%, 92%)", "rebeccapurple"],
     // for `dark` the default theme will be used
   };
-  // const explicitTheme: ThemeInput = {
-  //   light: ["#f0f0f0", "#c4edde", "#7ac7c4", "#f73859", "#384259"],
-  //   dark: ["#383838", "#4D455D", "#7DB9B6", "#F5E9CF", "#E96479"],
-  // };
 
   return (
     // <div className="p-4 rounded-lg">
