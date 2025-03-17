@@ -47,7 +47,7 @@ export function LeetcodeCalendar() {
         theme={minimalTheme}
         renderBlock={(block, activity) => (
           <MuiTooltip
-            title={`${activity.count} activities in the last year`}
+            title={`${activity.count} activities on ${activity.date}`}
           >
             {block}
           </MuiTooltip>

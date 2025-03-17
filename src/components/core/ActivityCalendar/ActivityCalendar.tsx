@@ -97,7 +97,7 @@ const DEFAULT_MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', '
 const DEFAULT_LABELS: Labels = {
   months: DEFAULT_MONTH_LABELS,
   weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-  totalCount: '{{count}} activities in {{year}}',
+  totalCount: '{{count}} activities over the past year',
   legend: {
     less: 'Less',
     more: 'More'
