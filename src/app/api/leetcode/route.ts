@@ -74,7 +74,7 @@ export async function GET(request: Request) {
       .map(([date, count]) => ({
         date,
         count,
-        level: count >= 30 ? 4 : count >= 10 ? 3 : count >= 1 ? 1 : 0,
+        level: count >= 30 ? 4 : count >= 10 ? 3 :  count >= 5 ? 2 : count >= 1 ? 1 : 0,
       }))
       .sort((a, b) => a.date.localeCompare(b.date));
 
