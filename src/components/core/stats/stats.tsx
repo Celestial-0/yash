@@ -3,7 +3,7 @@ import { Flex, Heading } from "@radix-ui/themes";
 import { SectionHeading } from "../section-heading";
 import { GitHubCalendar } from "./github-calander";
 import { LeetcodeCalendar } from "./leetcode-calander";
-// import LeetcodeUser from "./leetcode-user";
+import LeetcodeUser from "./leetcode-user";
 
 export default function Stats() {
   return (
@@ -18,7 +18,7 @@ export default function Stats() {
           <Heading className="font-bold" size={{ initial: "2", sm: "6" }} >
             Leetcode
           </Heading>
-          {/* <LeetcodeUser /> */}
+          <LeetcodeUser />
           <LeetcodeCalendar />
           <Heading className="font-bold" size={{ initial: "2", sm: "6" }}>
             GitHub
