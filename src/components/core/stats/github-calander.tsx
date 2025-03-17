@@ -14,7 +14,7 @@ export function GitHubCalendar() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const NextResponse = await fetch("/api/github");
+        const NextResponse = await fetch("/api/github-graph");
         const data = await NextResponse.json();
         setContributions(data);
       } catch (error) {

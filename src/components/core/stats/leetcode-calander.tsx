@@ -14,7 +14,7 @@ export function LeetcodeCalendar() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const NextResponse = await fetch("/api/leetcode");
+        const NextResponse = await fetch("/api/leetcode-graph");
         const data = await NextResponse.json();
         setContributions(data);
       } catch (error) {
