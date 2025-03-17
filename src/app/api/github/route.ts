@@ -38,15 +38,26 @@ const levelMap: Record<string, number> = {
   FOURTH_QUARTILE: 4,
 };
 
-export async function GET(req: Request) {
+export async function GET(request: Request) {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
   if (!GITHUB_TOKEN) {
     return NextResponse.json({ error: 'Missing GitHub token' }, { status: 500 });
   }
-  const origin = req.headers.get('origin') || req.headers.get('referer');
-  if (!origin || !ALLOWED_ORIGINS.some(allowed => origin.startsWith(allowed))) {
+  const originHeader = request.headers.get('origin') || request.headers.get('referer');
+  let origin;
+  try {
+    if (originHeader) {
+      origin = new URL(originHeader).origin;
+    } else {
+      origin = originHeader;
+    }
+  } catch {
+    origin = originHeader;
+  }
+  if (!origin || !ALLOWED_ORIGINS.includes(origin)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
+
 
 
   const username = 'Celestial-0';
