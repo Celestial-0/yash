@@ -28,7 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <ThemeProvider attribute='class' enableSystem={true} defaultTheme='system'>
+                <ThemeProvider attribute='class' enableSystem={true} defaultTheme='dark'>
                     <Theme accentColor={ 'gray' }>
                         <GridBackground />
                         <NavigationBar />

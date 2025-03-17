@@ -52,7 +52,6 @@ export type ThemeInput =
 export type BlockAttributes = SVGAttributes<SVGRectElement> & HTMLAttributes<SVGRectElement>;
 export type BlockElement = ReactElement<BlockAttributes, string | JSXElementConstructor<SVGRectElement>>;
 
-
 export type SVGRectEventHandler = Omit<
   DOMAttributes<SVGRectElement>,
   "css" | "children" | "dangerouslySetInnerHTML"
@@ -65,24 +64,6 @@ export type EventHandlerMap = {
 };
 
 export type Props = {
-  /**
-   * List of calendar entries. Every `Activity` object requires an ISO 8601
-   * `date` string in the format `yyyy-MM-dd`, a `count` property with the
-   * amount of tracked data and a `level` property in the range `0-maxLevel`
-   * to specify activity intensity. The `maxLevel` prop is 4 by default.
-   *
-   * For missing dates, no activity is assumed.
-   *
-   * Example:
-   *
-   * ```json
-   * {
-   *   "date": "2021-02-20",
-   *   "count": 16,
-   *   "level": 3
-   * }
-   * ```
-   */
   data: Array<Activity>;
   blockMargin?: number;
   blockRadius?: number;
@@ -367,9 +348,9 @@ function createTheme(input: ThemeInput | undefined, steps = 5) {
             ? calcColorScale(input.light as [string, string], steps)
             : input.light
           : input.light,
-        dark: Array.isArray(input.dark) && input.dark.length === 2
-          ? calcColorScale(input.dark as [string, string], steps)
-          : input.dark
+      dark: Array.isArray(input.dark) && input.dark.length === 2
+        ? calcColorScale(input.dark as [string, string], steps)
+        : input.dark
     };
   }
   return defaultTheme;
@@ -520,6 +501,10 @@ export const ActivityCalendar = React.forwardRef<HTMLElement, Omit<Props, "ref">
     if (loading) {
       activities = generateEmptyData();
     }
+    // Ensure there is at least one activity to avoid errors.
+    if (!activities.length) {
+      return <div>No activity data available.</div>;
+    }
     validateActivities(activities, maxLevel);
     const firstActivity = activities[0];
     const year = dateFns.getYear(dateFns.parseISO(firstActivity.date));
@@ -544,7 +529,8 @@ export const ActivityCalendar = React.forwardRef<HTMLElement, Omit<Props, "ref">
       return Object.keys(eventHandlers).reduce(
         (handlers, key) => ({
           ...handlers,
-          [key]: (event: Parameters<NonNullable<SVGRectEventHandler[keyof SVGRectEventHandler]>>[0]) => eventHandlers[key as keyof EventHandlerMap]?.(event)(activity)
+          [key]: (event: Parameters<NonNullable<SVGRectEventHandler[keyof SVGRectEventHandler]>>[0]) =>
+            eventHandlers[key as keyof EventHandlerMap]?.(event)(activity)
         }),
         {}
       );
@@ -729,8 +715,9 @@ ActivityCalendar.displayName = 'ActivityCalendar';
 /* ========================================================================
    COMPONENT: Skeleton
    ======================================================================== */
+// Fixed Skeleton: instead of passing an empty array, we pass generated empty data
 export const Skeleton = (props: Omit<Props, "data">) =>
-  _jsx(ActivityCalendar, { data: [], ...props });
+  _jsx(ActivityCalendar, { data: generateEmptyData(), ...props });
 
 // Export default component
 export default ActivityCalendar;
