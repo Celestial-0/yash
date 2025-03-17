@@ -14,8 +14,8 @@ export function GitHubCalendar() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/api/github");
-        const data = await response.json();
+        const NextResponse = await fetch("/api/github");
+        const data = await NextResponse.json();
         setContributions(data);
       } catch (error) {
         console.error("Error fetching GitHub contributions:", error);

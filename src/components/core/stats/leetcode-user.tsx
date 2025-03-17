@@ -26,8 +26,8 @@ export default function LeetcodeUser() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/api/leetcode-user");
-        const data: UserData = await response.json();
+        const NextResponse = await fetch("/api/leetcode-user");
+        const data: UserData = await NextResponse.json();
         setUserData(data);
       } catch (error) {
         console.error("Error fetching Leetcode contributions:", error);

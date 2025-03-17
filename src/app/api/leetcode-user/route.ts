@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server';
+import ALLOWED_ORIGINS from '@/constants/allowed-origin';
 
-export async function GET() {
+export async function GET(request: Request) {
+
+  const origin = request.headers.get('origin') || request.headers.get('referer');
+  if (!origin || !ALLOWED_ORIGINS.some(allowed => origin.startsWith(allowed))) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
   try {
     // Define the GraphQL query and variables
     const query = `

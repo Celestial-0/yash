@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { graphql } from '@octokit/graphql';
+import ALLOWED_ORIGINS from '@/constants/allowed-origin';
 
-// Define TypeScript interfaces for the expected response structure
+// Define TypeScript interfaces for the expected NextResponse structure
 interface ContributionDay {
   date: string;
   contributionCount: number;
@@ -37,11 +38,16 @@ const levelMap: Record<string, number> = {
   FOURTH_QUARTILE: 4,
 };
 
-export async function GET() {
+export async function GET(req: Request) {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
   if (!GITHUB_TOKEN) {
     return NextResponse.json({ error: 'Missing GitHub token' }, { status: 500 });
   }
+  const origin = req.headers.get('origin') || req.headers.get('referer');
+  if (!origin || !ALLOWED_ORIGINS.some(allowed => origin.startsWith(allowed))) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
+
 
   const username = 'Celestial-0';
   const query = `

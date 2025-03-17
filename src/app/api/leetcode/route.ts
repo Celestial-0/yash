@@ -1,10 +1,18 @@
+import ALLOWED_ORIGINS from '@/constants/allowed-origin';
+import { NextResponse } from 'next/server';
+
 export async function GET(request: Request) {
   const sessionCookie = process.env.LEETCODE_SESSION_COOKIE;
   if (!sessionCookie) {
-    return new Response(JSON.stringify({ error: "Missing LeetCode session cookie" }), {
+    return new NextResponse(JSON.stringify({ error: "Missing LeetCode session cookie" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
+  }
+
+  const origin = request.headers.get('origin') || request.headers.get('referer');
+  if (!origin || !ALLOWED_ORIGINS.some(allowed => origin.startsWith(allowed))) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
   const filterYear = new URL(request.url).searchParams.get("year");
@@ -35,11 +43,11 @@ export async function GET(request: Request) {
           "Cookie": `LEETCODE_SESSION=${sessionCookie}`,
         },
         body: JSON.stringify({ query, variables: { offset, limit: batchSize } }),
-      }).then(async (response) => {
-        if (!response.ok) {
-          throw new Error(`LeetCode API error: ${response.statusText}`);
+      }).then(async (NextResponse) => {
+        if (!NextResponse.ok) {
+          throw new Error(`LeetCode API error: ${NextResponse.statusText}`);
         }
-        const json = await response.json();
+        const json = await NextResponse.json();
         if (json.errors) {
           throw new Error(json.errors.map((err: { message: string }) => err.message).join(", "));
         }
@@ -78,13 +86,13 @@ export async function GET(request: Request) {
       }))
       .sort((a, b) => a.date.localeCompare(b.date));
 
-    return new Response(JSON.stringify(result), {
+    return new NextResponse(JSON.stringify(result), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
-    return new Response(JSON.stringify({ error: errorMessage }), {
+    return new NextResponse(JSON.stringify({ error: errorMessage }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });

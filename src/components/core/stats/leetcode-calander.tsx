@@ -14,8 +14,8 @@ export function LeetcodeCalendar() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/api/leetcode");
-        const data = await response.json();
+        const NextResponse = await fetch("/api/leetcode");
+        const data = await NextResponse.json();
         setContributions(data);
       } catch (error) {
         console.error("Error fetching Leetcode contributions:", error);
