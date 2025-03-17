@@ -41,7 +41,23 @@ export default function LeetcodeUser() {
 
   return (
     <Flex direction="column" gap="2" className="w-full rounded-xl">
-      
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        userData && (
+          <div>
+            <p>Ranking: {userData.profile.ranking}</p>
+            <p>Submissions:</p>
+            <ul>
+              {userData.allStats.acSubmissionNum.map((stat, index) => (
+                <li key={index}>
+                  {stat.difficulty}: {stat.count}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      )}
     </Flex>
   );
 }
