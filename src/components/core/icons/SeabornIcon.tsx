@@ -1,5 +1,6 @@
 import * as React from "react"
-const SeabornIcon = (props) => (
+import { SVGProps } from "react"
+const SeabornIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1.5em"

@@ -1,5 +1,6 @@
 import * as React from "react"
-const CIcon = (props) => (
+import { SVGProps } from "react"
+const CIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1.5em"
