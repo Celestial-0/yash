@@ -7,18 +7,18 @@ import type { ThemeInput } from "@/components/core/ActivityCalendar/ActivityCale
 import { Tooltip as MuiTooltip } from "@mui/material";
 import { Flex } from "@radix-ui/themes";
 
-export function GitHubCalendar() {
+export function LeetcodeCalendar() {
   const [contributions, setContributions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/api/github");
+        const response = await fetch("/api/leetcode");
         const data = await response.json();
         setContributions(data);
       } catch (error) {
-        console.error("Error fetching GitHub contributions:", error);
+        console.error("Error fetching Leetcode contributions:", error);
       } finally {
         setIsLoading(false);
       }
