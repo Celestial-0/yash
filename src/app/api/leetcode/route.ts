@@ -1,5 +1,3 @@
-"use server";
-
 export async function GET(request: Request) {
   const sessionCookie = process.env.LEETCODE_SESSION_COOKIE;
   if (!sessionCookie) {
