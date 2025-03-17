@@ -39,8 +39,10 @@ export async function GET(request: Request) {
     // Create LeetCode client instance.
     const leetcode = new LeetCode(credential);
 
+    
+
     // Fetch a batch of submissions (e.g., 2000 recent submissions).
-    const submissionsData = await leetcode.submissions({ limit: 2000 });
+    const submissionsData = await leetcode.submissions({ limit: 1000 });
 
     // Process submissions: group them by full date (YYYY-MM-DD)
     const contributionsMap: { [key: string]: number } = {};
