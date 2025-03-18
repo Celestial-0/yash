@@ -6,6 +6,7 @@ import ActivityCalendar from "@/components/core/ActivityCalendar/ActivityCalenda
 import type { ThemeInput } from "@/components/core/ActivityCalendar/ActivityCalendar";
 import { Tooltip as MuiTooltip } from "@mui/material";
 import { Flex } from "@radix-ui/themes";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function LeetcodeCalendar() {
   const [contributions, setContributions] = useState([]);
@@ -27,7 +28,11 @@ export function LeetcodeCalendar() {
   }, []);
 
   if (isLoading) {
-    return <div className="p-4 ">Loading...</div>;
+    return (
+      <div className="flex items-center space-y-3">
+       <Skeleton className="h-[175px] w-full rounded-xl" />
+      </div>
+    );
   }
 
   if (!contributions.length) {
