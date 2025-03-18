@@ -4,6 +4,7 @@ import { SectionHeading } from "../section-heading";
 import { GitHubCalendar } from "./github-calander";
 import { LeetcodeCalendar } from "./leetcode-calander";
 import LeetcodeProgress from "./leetcode-progress";
+// import { LeetcodeAnimatedProgressBar } from "./leetcode-animated";
 
 export default function Stats() {
   return (
@@ -15,15 +16,14 @@ export default function Stats() {
           className={"w-full justify-between"}
           gap={"3"}
         >
-          <Heading className="font-bold" size={{ initial: "2", sm: "6" }} >
+          <Heading className="font-bold pb-6" size={{ initial: "2", sm: "6" }}>
             Leetcode
           </Heading>
-          <Flex direction={"row"}>
-          
+
           <LeetcodeProgress />
-          </Flex>
+
           <LeetcodeCalendar />
-          <Heading className="font-bold" size={{ initial: "2", sm: "6" }}>
+          <Heading className="font-bold pb-4" size={{ initial: "2", sm: "6" }}>
             GitHub
           </Heading>
           <GitHubCalendar />

@@ -1,9 +1,12 @@
 import { cn } from "@/lib/utils";
+import { Text } from "@radix-ui/themes";
 
 interface AnimatedCircularProgressBarProps {
   max: number;
   value: number;
   min: number;
+  statCount: number;
+  totalCount: number;
   gaugePrimaryColor: string;
   gaugeSecondaryColor: string;
   className?: string;
@@ -16,6 +19,8 @@ export function AnimatedCircularProgressBar({
   gaugePrimaryColor,
   gaugeSecondaryColor,
   className,
+  statCount,
+  totalCount,
 }: AnimatedCircularProgressBarProps) {
   const circumference = 2 * Math.PI * 45;
   const percentPx = circumference / 100;
@@ -101,7 +106,10 @@ export function AnimatedCircularProgressBar({
         data-current-value={currentPercent}
         className="duration-[var(--transition-length)] delay-[var(--delay)] absolute inset-0 m-auto size-fit ease-linear animate-in fade-in"
       >
-        {currentPercent}
+       <Text weight="bold" size="6">{statCount}</Text>
+       <Text size="3">/{totalCount}</Text>
+
+       
       </span>
     </div>
   );

@@ -1,7 +1,8 @@
 "use client";
 
-import { Flex, Text } from "@radix-ui/themes";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { AnimatedCircularProgressBar } from "@/components/magicui/animated-circular-progress-bar";
+import { Flex, Text } from "@radix-ui/themes";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -11,7 +12,7 @@ interface SubmissionStat {
 }
 
 interface UserData {
-  profile: { ranking: number };
+  profile?: { ranking: number };
   allStats: { acSubmissionNum: SubmissionStat[] };
   allQuestionsCount: SubmissionStat[];
 }
@@ -26,6 +27,7 @@ export default function LeetcodeProgress() {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Fetch data from API and delay a little for smooth animation.
   useEffect(() => {
     const fetchData = async () => {
       const startTime = Date.now();
@@ -34,9 +36,8 @@ export default function LeetcodeProgress() {
         const data: UserData = await response.json();
         setUserData(data);
       } catch (error) {
-        console.error("Error fetching Leetcode contributions:", error);
+        console.error("Error fetching Leetcode data:", error);
       } finally {
-        // Ensure at least 2000ms delay for smooth animation.
         const elapsed = Date.now() - startTime;
         const remaining = Math.max(200 - elapsed, 0);
         setTimeout(() => {
@@ -47,6 +48,29 @@ export default function LeetcodeProgress() {
     fetchData();
   }, []);
 
+  // Calculate overall progress (across Easy, Medium, Hard).
+  const overallStats = useMemo(() => {
+    if (!userData)
+      return { submittedTotal: 0, questionsTotal: 0, overallProgress: 0 };
+    const difficultiesArr = ["Easy", "Medium", "Hard"];
+    let submittedTotal = 0;
+    let questionsTotal = 0;
+    userData.allStats.acSubmissionNum.forEach((stat) => {
+      if (difficultiesArr.includes(stat.difficulty)) {
+        submittedTotal += stat.count;
+      }
+    });
+    userData.allQuestionsCount.forEach((stat) => {
+      if (difficultiesArr.includes(stat.difficulty)) {
+        questionsTotal += stat.count;
+      }
+    });
+    const overallProgress =
+      questionsTotal > 0 ? (submittedTotal / questionsTotal) * 100 : 0;
+    return { submittedTotal, questionsTotal, overallProgress };
+  }, [userData]);
+
+  // Helpers to get difficulty-specific stats.
   const getStat = useCallback(
     (difficulty: string) =>
       userData?.allStats.acSubmissionNum.find(
@@ -74,7 +98,7 @@ export default function LeetcodeProgress() {
     [getStat, getTotal]
   );
 
-  // Prepare progress stats; while loading, progress remains 0.
+  // Prepare per-difficulty progress stats.
   const progressStats = useMemo(() => {
     if (isLoading || !userData) {
       return difficulties.map(({ label }) => ({
@@ -92,15 +116,7 @@ export default function LeetcodeProgress() {
     }));
   }, [isLoading, userData, getStat, getTotal, getProgress]);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center space-y-3">
-       <Skeleton className="h-[175px] w-full rounded-xl" />
-      </div>
-    );
-  }
-
-  // Component for each difficulty that animates from 0 to target progress.
+  // Component for individual difficulty progress with animation.
   const DifficultyStat = ({
     difficulty,
     color,
@@ -128,7 +144,7 @@ export default function LeetcodeProgress() {
     }, [targetProgress]);
 
     return (
-      <Flex direction="column" gap="1" className="w-full">
+      <Flex direction="column" gap="2" className="w-full">
         <Flex justify="between">
           <Text weight="medium" className={`text-xs font-medium ${color}`}>
             {difficulty}
@@ -142,32 +158,64 @@ export default function LeetcodeProgress() {
         </Flex>
         <Progress
           value={displayProgress}
-          className="h-2 ease-[cubic-bezier(0.65,0,0.35,1)] transition-all "
+          className="h-2 ease-[cubic-bezier(0.65,0,0.35,1)] transition-all"
         />
       </Flex>
     );
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex gap-4 p-4 rounded-xl">
+
+        <div className="flex items-center justify-center flex-grow">
+          <Skeleton className="h-full w-full rounded-xl" />
+        </div>
+
+        <div className="flex flex-col gap-3 flex-grow-[4]">
+          <Skeleton className="h-10 w-full rounded" />
+          <Skeleton className="h-10 w-full rounded" />
+          <Skeleton className="h-10 w-full rounded" />
+        </div>
+      </div>
+    );
+  }
+  
+  
+
   return (
-    <Flex
-      direction="column"
-      gap="2"
-      className="min-h-[180px] w-full p-4 rounded-xl"
-    >
-      <Flex direction="column" gap="2" className="w-full h-[148px]">
-        {progressStats.map(({ difficulty, statCount, totalCount, progress }) => {
-          const { color } = difficulties.find((d) => d.label === difficulty)!;
-          return (
-            <DifficultyStat
-              key={difficulty}
-              difficulty={difficulty}
-              color={color}
-              statCount={statCount}
-              totalCount={totalCount}
-              progress={progress}
-            />
-          );
-        })}
+    <Flex direction="row" gap="4" className="w-full p-4 rounded-xl">
+      {/* Overall progress section with animated circular gauge */}
+      <Flex direction="column" justify="center" className="grow">
+        <AnimatedCircularProgressBar
+          className="my-custom-progress-bar"
+          max={100}
+          min={0}
+          value={overallStats.overallProgress}
+          gaugePrimaryColor="rgb(79 70 229)"
+          gaugeSecondaryColor="rgba(0, 0, 0, 0.1)"
+          statCount={overallStats.submittedTotal}
+          totalCount={overallStats.questionsTotal}
+        />
+      </Flex>
+
+      {/* Difficulty-specific progress breakdown */}
+      <Flex direction="column" gap="2" className="grow-[4]">
+        {progressStats.map(
+          ({ difficulty, statCount, totalCount, progress }) => {
+            const { color } = difficulties.find((d) => d.label === difficulty)!;
+            return (
+              <DifficultyStat
+                key={difficulty}
+                difficulty={difficulty}
+                color={color}
+                statCount={statCount}
+                totalCount={totalCount}
+                progress={progress}
+              />
+            );
+          }
+        )}
       </Flex>
     </Flex>
   );
