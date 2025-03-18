@@ -52,7 +52,7 @@ export function GitHubCalendar() {
         theme={minimalTheme}
         renderBlock={(block, activity) => (
           <MuiTooltip
-            title={`${activity.count} activities over the past year`}
+            title={`${activity.count} activities on ${activity.date}`}
           >
             {block}
           </MuiTooltip>
