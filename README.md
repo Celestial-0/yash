@@ -1,6 +1,7 @@
 # Yash Kumar Singh Portfolio
 
-Welcome to my portfolio website! This project showcases my work as a Full-Stack Developer with a focus on building scalable, high-performance applications. It highlights my skills in the MERN & Django stacks, data structures & algorithms, AI/ML, and more.
+Welcome to my humble chronicle of creative growth and thoughtful problem-solving. I’m a passionate Full-Stack Developer who transforms challenges into scalable, high-performance solutions using the MERN and Django stacks. Join me on a journey through evolving data structures, innovative algorithms, and groundbreaking AI/ML projects that embody both technical excellence and creative spirit.
+
 
 ## Table of Contents
 
