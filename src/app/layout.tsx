@@ -21,7 +21,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
     title: "Celestial",
-    description: "My Portfolio",
+    description: "Celestial: a humble chronicle of creative growth and thoughtful problem solving.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
