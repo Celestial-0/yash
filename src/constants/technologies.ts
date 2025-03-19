@@ -14,7 +14,6 @@ export const TECHNOLOGIES = [
     { title: 'Tailwind CSS', simpleIcon: 'tailwindcss' },
     { title: 'JavaScript', simpleIcon: 'javascript' },
     { title: 'TypeScript', simpleIcon: 'typescript' },
-    { title: 'Node.js', simpleIcon: 'nodedotjs' },
     { title: 'React', simpleIcon: 'react' },
     { title: 'Next.js', simpleIcon: 'nextdotjs' },
     { title: 'Framer Motion', simpleIcon: 'framermotion' },
