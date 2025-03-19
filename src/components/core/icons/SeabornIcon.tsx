@@ -1,6 +1,6 @@
 import * as React from "react"
 import { SVGProps } from "react"
-const SeabornIcon = (props: SVGProps<SVGSVGElement>) => (
+export const SeabornIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1.5em"
@@ -334,4 +334,4 @@ const SeabornIcon = (props: SVGProps<SVGSVGElement>) => (
     </defs>
   </svg>
 )
-export default SeabornIcon;
+

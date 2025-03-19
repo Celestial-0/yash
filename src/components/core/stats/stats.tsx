@@ -4,8 +4,6 @@ import { SectionHeading } from "../section-heading";
 import { GitHubCalendar } from "./github-calander";
 import { LeetcodeCalendar } from "./leetcode-calander";
 import LeetcodeProgress from "./leetcode-progress";
-// import { LeetcodeAnimatedProgressBar } from "./leetcode-animated";
-
 export default function Stats() {
   return (
     <>

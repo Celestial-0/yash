@@ -9,13 +9,14 @@ export const TECHNOLOGIES = [
 
 
     // Frontend Technologies
-    { title: 'React', simpleIcon: 'react' },
-    { title: 'Next.js', simpleIcon: 'nextdotjs' },
-    { title: 'TypeScript', simpleIcon: 'typescript' },
-    { title: 'JavaScript', simpleIcon: 'javascript' },
     { title: 'HTML5', simpleIcon: 'html5' },
     { title: 'CSS3', simpleIcon: 'css3' },
     { title: 'Tailwind CSS', simpleIcon: 'tailwindcss' },
+    { title: 'JavaScript', simpleIcon: 'javascript' },
+    { title: 'TypeScript', simpleIcon: 'typescript' },
+    { title: 'Node.js', simpleIcon: 'nodedotjs' },
+    { title: 'React', simpleIcon: 'react' },
+    { title: 'Next.js', simpleIcon: 'nextdotjs' },
     { title: 'Framer Motion', simpleIcon: 'framermotion' },
     { title: 'Material UI', simpleIcon: 'mui' },
 
@@ -43,6 +44,8 @@ export const TECHNOLOGIES = [
     { title: 'Vercel', simpleIcon: 'vercel' },
 
     // IDEs & Environments
+    // android studio
+    { title: 'Android Studio', simpleIcon: 'androidstudio' },
     { title: 'Spyder', simpleIcon: 'spyder' },
     { title: 'Visual Studio Code', simpleIcon: 'vscode' },
     { title: 'Anaconda', simpleIcon: 'anaconda' },

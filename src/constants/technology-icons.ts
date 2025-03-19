@@ -40,19 +40,7 @@ import {
 import { FaDocker } from "react-icons/fa";
 import { FaRust } from "react-icons/fa";
 
-import CIconBW from '@/components/core/icons/CIconBW';
-import FletIcon from '@/components/core/icons/FletIcon';
-import MatplotlibIcon from '@/components/core/icons/MatplotlibIcon';
-import PytestIcon from '@/components/core/icons/PytestIcon';
-import SeabornIcon from '@/components/core/icons/SeabornIcon';
-
-// import {
-//     CIconBW,
-//     FletIcon,
-//     MatplotlibIcon,
-//     PytestIcon,
-//     SeabornIcon
-// } from './../components/core/icons/index';
+import { MatplotlibIcon, CIconBW, FletIcon, PytestIcon, SeabornIcon } from '@/components/core/icons/index';
 
 export const TECHNOLOGY_ICONS: Record<Technology, IconType> = {
     'React': RiReactjsLine,

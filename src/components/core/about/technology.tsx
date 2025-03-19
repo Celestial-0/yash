@@ -5,8 +5,6 @@ import { Badge, Flex } from '@radix-ui/themes';
 import { SectionHeading } from '../section-heading';
 
 const icons: string[] = TECHNOLOGIES.map( tech => tech.simpleIcon  );
-// icons.push( ...CustomIcons );
-
 
 export const Technology = () => {
 
