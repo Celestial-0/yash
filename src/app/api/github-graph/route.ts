@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { graphql } from '@octokit/graphql';
 import ALLOWED_ORIGINS from '@/constants/allowed-origin';
 
-// Define TypeScript interfaces for the expected NextResponse structure
 interface ContributionDay {
   date: string;
   contributionCount: number;
@@ -29,7 +28,6 @@ interface QueryResult {
   user: User;
 }
 
-// Mapping contribution levels to numeric values
 const levelMap: Record<string, number> = {
   NONE: 0,
   FIRST_QUARTILE: 1,
@@ -43,24 +41,21 @@ export async function GET(request: Request) {
   if (!GITHUB_TOKEN) {
     return NextResponse.json({ error: 'Missing GitHub token' }, { status: 500 });
   }
+
   const originHeader = request.headers.get('origin') || request.headers.get('referer');
   let origin;
   try {
-    if (originHeader) {
-      origin = new URL(originHeader).origin;
-    } else {
-      origin = originHeader;
-    }
+    origin = originHeader ? new URL(originHeader).origin : originHeader;
   } catch {
     origin = originHeader;
   }
+
   if (!origin || !ALLOWED_ORIGINS.includes(origin)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-
-
   const username = 'Celestial-0';
+
   const query = `
     query ($login: String!) {
       user(login: $login) {
@@ -80,27 +75,28 @@ export async function GET(request: Request) {
   `;
 
   try {
-    // Specify the type of result as QueryResult instead of any
     const result: QueryResult = await graphql(query, {
       login: username,
-      headers: {
-        authorization: `Bearer ${GITHUB_TOKEN}`,
-      },
+      headers: { authorization: `Bearer ${GITHUB_TOKEN}` },
     });
 
-    const weeks = result.user.contributionsCollection.contributionCalendar.weeks;
-    const contributions = weeks.flatMap((week) =>
-      week.contributionDays
-        .filter((day) => day.contributionCount !== 0) // Exclude zero contributions
-        .map((day) => ({
-          date: day.date,
-          count: day.contributionCount,
-          level: levelMap[day.contributionLevel] || 0, // Map contributionLevel to number
-        }))
-    );
+    // Optimized filtering and mapping using a single loop
+    const contributions: { date: string; count: number; level: number }[] = [];
+    for (const week of result.user.contributionsCollection.contributionCalendar.weeks) {
+      for (const day of week.contributionDays) {
+        if (day.contributionCount > 0) {
+          contributions.push({
+            date: day.date,
+            count: day.contributionCount,
+            level: levelMap[day.contributionLevel] || 0,
+          });
+        }
+      }
+    }
 
     return NextResponse.json(contributions);
   } catch (error) {
-    return NextResponse.json({ error: 'GitHub API error', details: error }, { status: 500 });
+    console.error('GitHub API Error:', error);
+    return NextResponse.json({ error: 'GitHub API error', details: (error as Error).message }, { status: 500 });
   }
 }
