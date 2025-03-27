@@ -16,12 +16,19 @@ export default function ExpandableContent({
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
   // Format date function
-  const formatDate = (dateStr: string) => {
+  const formatDate = (dateStr?: string) => {
+    if (!dateStr || dateStr.trim() === "") return "Invalid Date"; // Handle empty values
+  
+    const date = new Date(dateStr);
+  
+    if (isNaN(date.getTime())) return "Invalid Date"; // Ensure the date is valid
+  
     return new Intl.DateTimeFormat("en-US", {
       month: "short",
       year: "numeric",
-    }).format(new Date(dateStr));
+    }).format(date);
   };
+  
 
   // Generate fallback initials
   const getInitials = (name: string) =>
