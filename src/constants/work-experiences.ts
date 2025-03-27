@@ -1,19 +1,13 @@
 import { Experience } from '@/types/experience';
 
-const formatDate = (dateStr?: string) => {
-  if (!dateStr || dateStr.trim() === "") return "Invalid Date"; // Handle empty values
-
-  const date =
-    dateStr.toLowerCase() === "present" ? new Date() : new Date(dateStr);
-
-  if (isNaN(date.getTime())) return "Invalid Date"; // Ensure valid date
-
+const formatDate = (dateStr: string) => {
+  if (dateStr.toLowerCase() === "present") return "Present";
+  const date = new Date(dateStr);
   return new Intl.DateTimeFormat("en-US", {
     month: "short",
     year: "numeric",
   }).format(date);
 };
-
 
 export const WORK_EXPERIENCES: Experience[] = [
   {

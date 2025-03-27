@@ -17,10 +17,9 @@ export default function ExpandableContent({
 
   // Format date function
   const formatDate = (dateStr?: string) => {
-    if (!dateStr || dateStr.trim() === "") return "Invalid Date"; // Handle empty values
-  
+    if (!dateStr || dateStr.trim().toLowerCase() === "present") return "Present"; // Handle empty values and 'Present'
+    
     const date = new Date(dateStr);
-  
     if (isNaN(date.getTime())) return "Invalid Date"; // Ensure the date is valid
   
     return new Intl.DateTimeFormat("en-US", {
@@ -28,6 +27,7 @@ export default function ExpandableContent({
       year: "numeric",
     }).format(date);
   };
+  
   
 
   // Generate fallback initials
