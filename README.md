@@ -28,7 +28,7 @@ This portfolio is built using modern web development technologies to ensure a fa
 
 ### Core Framework & Build Tools
 
-- **Next.js (v14.2.24):** The primary React framework used for server-rendered and statically generated applications.
+- **Next.js (v15.2.4):** The primary React framework used for server-rendered and statically generated applications.
 - **TypeScript (v5.8.2):** Provides static type checking to improve code quality and development efficiency.
 - **ESLint & Prettier:** Enforces code quality and maintains consistent code formatting with Next.js-specific linting rules.
 
