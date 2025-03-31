@@ -1,3 +1,5 @@
+"use server";
+
 import { NextResponse } from 'next/server';
 import { graphql } from '@octokit/graphql';
 import ALLOWED_ORIGINS from '@/constants/allowed-origin';

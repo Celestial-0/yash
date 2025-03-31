@@ -1,3 +1,5 @@
+"use server";
+
 import { NextResponse } from 'next/server';
 import ALLOWED_ORIGINS from '@/constants/allowed-origin';
 
