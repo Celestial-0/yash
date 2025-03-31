@@ -1,6 +1,7 @@
 "use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import "./terminal.scss";
 
@@ -100,13 +101,9 @@ const commands: { [key: string]: (props: CommandProps) => void } = {
       setOutput((prev) => [
         ...prev,
         { text: "you discovered my secret :O" },
-        <a
-          key="cv-link"
-          target="_blank"
-          href="/api/cv"
-        >
+        <Link key="cv-link" href="/api/cv" target="_blank">
           View my CV
-        </a>,
+        </Link>,
       ]);
     }
   },
@@ -133,44 +130,43 @@ const commands: { [key: string]: (props: CommandProps) => void } = {
         height={500}
       />,
     ]),
-    info: ({ setOutput }) => {
-        setOutput((prev) => [
-          ...prev,
-          <h1 key="info-title" className="title is-rainbow-text">
-            Info
-          </h1>,
-          <h3 key="info-subtitle" className="subtitle">
-            Version 1.0.0
-          </h3>,
-          {
-            text: "This little terminal window I built in a few hours (at 2am like a true programmer)",
-            class: "is-rainbow-red",
-          },
-          <p key="info-1" className="is-rainbow-orange">
-            Was pretty fun! Thinking of open sourcing the terminal design and input,{" "}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://github.com/Celestial-0/yash"
-            >
-              click here to check out the repo if you want!
-            </a>
-          </p>,
-          <p key="info-2" className="is-rainbow-yellow">
-            To find out more about me, <a href="/#about">Click here</a>
-          </p>,
-          <p key="info-3" className="is-rainbow-green">
-            To view my current projects and work <a href="/#projects">Click here</a>
-          </p>,
-          <p key="info-4" className="is-rainbow-blue">
-            To get in contact{" "}
-            <a href="#" onClick={() => { window.location.href = "/#contact"; }}>
-              Click here
-            </a>
-          </p>,
-        ]);
+  info: ({ setOutput }) => {
+    setOutput((prev) => [
+      ...prev,
+      <h1 key="info-title" className="title is-rainbow-text">
+        Info
+      </h1>,
+      <h3 key="info-subtitle" className="subtitle">
+        Version 1.0.0
+      </h3>,
+      {
+        text: "This little terminal window I built in a few hours (at 2am like a true programmer)",
+        class: "is-rainbow-red",
       },
-      
+      <p key="info-1" className="is-rainbow-orange">
+        Was pretty fun! Thinking of open sourcing the terminal design and input,{" "}
+        <Link
+          href="https://github.com/Celestial-0/yash"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          click here to check out the repo if you want!
+        </Link>
+      </p>,
+      <p key="info-2" className="is-rainbow-yellow">
+        To find out more about me, <Link href="/#about">Click here</Link>
+      </p>,
+      <p key="info-3" className="is-rainbow-green">
+        To view my current projects and work <Link href="/#projects">Click here</Link>
+      </p>,
+      <p key="info-4" className="is-rainbow-blue">
+        To get in contact{" "}
+        <Link href="/#contact">
+          Click here
+        </Link>
+      </p>,
+    ]);
+  },
   contact: ({ setOutput }) => {
     setOutput((prev) => [
       ...prev,
@@ -183,7 +179,6 @@ const commands: { [key: string]: (props: CommandProps) => void } = {
       window.location.href = "/#contact";
     }, 1500);
   },
-  
 };
 
 const isJsxElement = (value: LineOut): value is JSX.Element =>

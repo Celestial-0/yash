@@ -1,7 +1,7 @@
-
+// next.config.mjs
 const nextConfig = {
   reactStrictMode: true,
-  webpack: (config) => {
+  webpack(config) {
     // Remove the default SVG rule if it exists
     config.module.rules = config.module.rules.map((rule) => {
       if (rule.test?.test?.(".svg")) {
@@ -43,6 +43,15 @@ const nextConfig = {
     });
 
     return config;
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "media.giphy.com",
+        pathname: "/**",
+      },
+    ],
   },
 };
 
