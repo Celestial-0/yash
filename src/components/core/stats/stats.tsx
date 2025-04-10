@@ -4,7 +4,7 @@ import { SectionHeading } from "../section-heading";
 import { GitHubCalendar } from "./github-calander";
 import { LeetcodeCalendar } from "./leetcode-calander";
 import LeetcodeProgress from "./leetcode-progress";
-export default function Stats() {
+export const Stats = () => {
   return (
     <>
       <Flex direction={"column"} gap={"6"} mb={"2"} id="stats">

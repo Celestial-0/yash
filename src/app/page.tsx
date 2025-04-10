@@ -5,10 +5,9 @@ import { Hero } from "@/components/core/hero/hero";
 import { Projects } from "@/components/core/projects/projects";
 import { Work } from "@/components/core/work/work";
 import { Contact } from "@/components/core/contacts/contacts";
+import { Certifications } from "@/components/core/certifications/certifications";
+import { Stats } from "@/components/core/stats/stats";
 import { Flex } from "@radix-ui/themes";
-import Stats from "@/components/core/stats/stats";
-
-
 
 export default function Page() {
   return (
@@ -19,8 +18,9 @@ export default function Page() {
       <Education />
       <Technology />
       <Projects />
-      <Stats/>
-      <Contact/>
+      <Certifications />
+      <Stats />
+      <Contact />
     </Flex>
   );
 }

@@ -6,6 +6,7 @@ export interface CERTIFICATE {
     expirationDate?: string;
     credentialID: string;
     credentialURL?: string;
+    description?: string;
+    certificateImg?: string;
     skills: string[];
-    media?: string[];
 }
