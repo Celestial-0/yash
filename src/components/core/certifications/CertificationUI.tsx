@@ -3,7 +3,6 @@
 import { CERTIFICATE } from "@/types/certification";
 import {
   Avatar,
-  Box,
   Button,
   Container,
   Dialog,
@@ -13,14 +12,13 @@ import {
   Link,
   ScrollArea,
   Text,
-  Tooltip,
   VisuallyHidden,
 } from "@radix-ui/themes";
 import React, { useState } from "react";
-import { FaChevronRight } from "react-icons/fa6";
+// import { FaChevronRight } from "react-icons/fa6";
 
 import Image from "next/image";
-import { TECHNOLOGY_ICONS } from "@/constants/technology-icons";
+// import { TECHNOLOGY_ICONS } from "@/constants/technology-icons";
 
 export default function Certification(certificate: CERTIFICATE) {
   const [isExpanded, setIsExpanded] = useState(false);
