@@ -92,7 +92,8 @@ export default function Certification(certificate: CERTIFICATE) {
         </VisuallyHidden>
         <Inset clip={"padding-box"} side={"top"} pb={"current"}>
           <Image
-            priority
+            priority={true}
+            fetchPriority="high"
             src={certificate.certificateImg || certificate.imgSrc}
             alt={"placeholder"}
             width={1000}
