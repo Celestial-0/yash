@@ -1,10 +1,11 @@
 export interface CERTIFICATE {
     name: string;
     issuingOrganization: string;
+    imgSrc: string;
     issueDate: string;
-    expirationDate: string;
+    expirationDate?: string;
     credentialID: string;
-    credentialURL: string;
+    credentialURL?: string;
     skills: string[];
-    media: string[];
+    media?: string[];
 }

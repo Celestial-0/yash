@@ -71,7 +71,7 @@ export const ProjectCard = ({ project, index }: { project: Project, index: numbe
                     <Flex direction={{ initial: 'column', sm: 'row' }} gap={ '3' } mt={ '5' }>
                         <Button asChild variant={ 'outline' } className={ 'transition-all sm:flex-1 cursor-pointer' } size={{ initial: '3', sm: '4' }}>
                             <Link href={ project.liveLink }>
-                                Live Deployment
+                                { project.urlDescription || "Live Deployment"}
                             </Link>
                         </Button>
                         <Button asChild variant={ 'soft' } className={ 'transition-all sm:flex-1 cursor-pointer text-[--gray-1] bg-[--gray-12]' } size={{ initial: '3', sm: '4' }}>

@@ -15,4 +15,7 @@ export interface Project {
     githubLink: string;
     // The live link of the project
     liveLink ?: string;
+
+    urlDescription ?: string;
+
 }

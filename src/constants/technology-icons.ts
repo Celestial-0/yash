@@ -34,6 +34,7 @@ import {
     SiLinux,
     SiAndroid,
     SiKotlin,
+    SiShadcnui,
 } from "react-icons/si";
 
 
@@ -74,10 +75,13 @@ export const TECHNOLOGY_ICONS: Record<Technology, IconType> = {
     'Anaconda': SiAnaconda,
     'Docker': FaDocker,
     'Material UI': SiMui,
+    'Shadcn UI': SiShadcnui,
     'Vercel': SiVercel,
     'Git': RiGitBranchFill,
     'GitHub': RiGithubFill,
     'Framer Motion': SiFramer,
-    'Linux': SiLinux
+    'Linux': SiLinux,
+
+    // 'Hero UI': HeroUI as IconType
 
 };

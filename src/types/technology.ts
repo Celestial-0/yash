@@ -34,4 +34,6 @@ export type Technology =
   | 'Vercel'
   | 'Pytest'
   | 'Android'
+  // | 'Hero UI'
+  | 'Shadcn UI'
   | 'Kotlin';  
