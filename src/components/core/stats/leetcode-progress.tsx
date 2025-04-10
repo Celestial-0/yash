@@ -55,12 +55,12 @@ export default function LeetcodeProgress() {
     const difficultiesArr = ["Easy", "Medium", "Hard"];
     let submittedTotal = 0;
     let questionsTotal = 0;
-    userData.allStats.acSubmissionNum.forEach((stat) => {
+    userData.allStats?.acSubmissionNum.forEach((stat) => {
       if (difficultiesArr.includes(stat.difficulty)) {
         submittedTotal += stat.count;
       }
     });
-    userData.allQuestionsCount.forEach((stat) => {
+    userData.allQuestionsCount?.forEach((stat) => {
       if (difficultiesArr.includes(stat.difficulty)) {
         questionsTotal += stat.count;
       }
@@ -73,7 +73,7 @@ export default function LeetcodeProgress() {
   // Helpers to get difficulty-specific stats.
   const getStat = useCallback(
     (difficulty: string) =>
-      userData?.allStats.acSubmissionNum.find(
+      userData?.allStats?.acSubmissionNum.find(
         (stat) => stat.difficulty === difficulty
       ),
     [userData]
@@ -81,7 +81,7 @@ export default function LeetcodeProgress() {
 
   const getTotal = useCallback(
     (difficulty: string) =>
-      userData?.allQuestionsCount.find(
+      userData?.allQuestionsCount?.find(
         (stat) => stat.difficulty === difficulty
       ),
     [userData]
