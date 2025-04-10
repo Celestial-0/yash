@@ -11,14 +11,6 @@ const formatDate = (dateStr: string) => {
 
 export const WORK_EXPERIENCES: Experience[] = [
   {
-    company: 'IEEE GU',
-    role: 'Core Member',
-    startDate: '2024-09-01',
-    endDate: formatDate('Present'),
-    description: 'Organizing tech events, workshops, and hackathons while fostering innovation and networking at IEEE GU.',
-    logoUrl: 'https://media.licdn.com/dms/image/v2/D4E0BAQFcmWw6fYQ_MA/company-logo_200_200/company-logo_200_200/0/1719257749735?e=1749686400&v=beta&t=Wsc7M4ULLy7jrAcUIHRbzS96L-RKNpguFdoeAOS96kI',
-  },
-  {
     company: 'AICSSYC',
     role: 'Organizer',
     startDate: '2024-10-01',
@@ -27,7 +19,15 @@ export const WORK_EXPERIENCES: Experience[] = [
     logoUrl: 'https://media.licdn.com/dms/image/v2/D560BAQE9wxgLyTY_Wg/company-logo_200_200/company-logo_200_200/0/1725691654365/aicssyc_logo?e=1749686400&v=beta&t=8wywmMT5AFGGdYVFTzaEKXLmEtQZakCb5KrtIjg744Q',
   },
   {
-    company: 'IEEE Computer Society',
+    company: 'IEEE GU',
+    role: 'Core Member',
+    startDate: '2024-09-01',
+    endDate: formatDate('Present'),
+    description: 'Organizing tech events, workshops, and hackathons while fostering innovation and networking at IEEE GU.',
+    logoUrl: 'https://media.licdn.com/dms/image/v2/D4E0BAQFcmWw6fYQ_MA/company-logo_200_200/company-logo_200_200/0/1719257749735?e=1749686400&v=beta&t=Wsc7M4ULLy7jrAcUIHRbzS96L-RKNpguFdoeAOS96kI',
+  },
+  {
+    company: 'IEEE CS',
     role: 'Member',
     startDate: '2024-09-01',
     endDate: formatDate('Present'),
