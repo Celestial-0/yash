@@ -2,7 +2,6 @@ import { TECHNOLOGY_ICONS } from '@/constants/technology-icons';
 import { Project } from '@/types/project';
 import { Box, Button, Card, Container, Dialog, Flex, Heading, Inset, Link, ScrollArea, Text, Tooltip, VisuallyHidden } from '@radix-ui/themes';
 import { FaEye } from "react-icons/fa6";
-
 import Image from 'next/image';
 import BlurFade from '@/components/magicui/blur-fade';
 
